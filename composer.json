@@ -1,0 +1,21 @@
+{
+    "name": "hrzg/yii2-resque-module",
+    "description": "Resque job manager module with backend UI",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension"],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Tobias Munk",
+            "email": "tobias@diemeisterei.de"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "hrzg\\resque\\": "src"
+        }
+    }
+}
