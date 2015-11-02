@@ -22,10 +22,32 @@ or add
 to the require section of your `composer.json` file.
 
 
-Usage
+Setup
 -----
 
 Once the extension is installed, simply use it in your code by  :
 
+
+Docker containers
+```
+redis:
+  image: redis:3
+
+appworker:
+  build: .
+  command: yii resque/work
+  volumes:
+    - '.:/app'
+  links:
+    - 'redis:REDIS'
+    - 'mariadb:DB'
+```
+
+Module configuration
 ```php
-<?= \hrzg\resque\AutoloadExample::widget(); ?>```
+'resque' => [
+    'class' => 'hrzg\resque\Module',
+    'layout' => '@admin-views/layouts/main',
+]
+```
+

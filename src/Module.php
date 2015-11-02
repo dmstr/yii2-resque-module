@@ -2,6 +2,8 @@
 
 namespace hrzg\resque;
 
+use yii\base\Exception;
+
 class Module extends \yii\base\Module
 {
     public $controllerNamespace = 'hrzg\resque\controllers';
@@ -10,10 +12,9 @@ class Module extends \yii\base\Module
     {
         parent::init();
 
-        \Resque::setBackend(
-            getenv('REDIS_PORT_6379_TCP_ADDR') . ':' .
-            getenv('REDIS_PORT_6379_TCP_PORT')
-        );
+        if (empty(getenv('REDIS_PORT_6379_TCP_ADDR'))) {
+            throw new Exception('Redis connection from environment variables not found.');
+        }
 
         // custom initialization code goes here
     }
