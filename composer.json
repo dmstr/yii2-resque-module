@@ -11,7 +11,8 @@
         }
     ],
     "require": {
-        "yiisoft/yii2": "*"
+        "yiisoft/yii2": "2.*",
+        "chrisboulton/php-resque": "1.2.x"
     },
     "autoload": {
         "psr-4": {
