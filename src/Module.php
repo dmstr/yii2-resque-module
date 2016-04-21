@@ -13,7 +13,7 @@ class Module extends \yii\base\Module
         parent::init();
 
         if (empty(getenv('REDIS_PORT_6379_TCP_ADDR'))) {
-            throw new Exception('Redis connection from environment variables not found.');
+            throw new Exception('Redis connection from environment variables (REDIS_PORT_6379_TCP_ADDR, REDIS_PORT_6379_TCP_PORT) not found.');
         }
 
         // custom initialization code goes here
