@@ -14,7 +14,7 @@ use yii\filters\AccessControl;
 use yii\helpers\Json;
 use yii\web\Controller;
 
-class ImportController extends Controller
+class ManageController extends Controller
 {
     /**
      *

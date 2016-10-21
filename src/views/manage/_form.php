@@ -15,6 +15,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'queue')->dropDownList(
         [
             'default' => 'default',
+            'queue-1' => 'queue-1',
+            'queue-2' => 'queue-2',
         ]
     ) ?>
 
@@ -28,9 +30,12 @@ use yii\widgets\ActiveForm;
     '<div class="field-widget-{$attribute}">' .
     \devgroup\jsoneditor\Jsoneditor::widget(
         [
+            'options' => [
+              'style'=>'height: 80px;'
+            ],
             'editorOptions' => [
                 'modes' => ['code', 'form', 'text', 'tree', 'view'], // available modes
-                'mode'  => 'code', // current mode
+                'mode'  => 'form', // current mode
             ],
             'model'         => $model,
             'attribute'     => 'payload',
