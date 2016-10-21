@@ -7,6 +7,7 @@ use yii\base\Exception;
 class Module extends \yii\base\Module
 {
     public $controllerNamespace = 'hrzg\resque\controllers';
+    public $defaultRoute = 'import';
 
     public function init()
     {
