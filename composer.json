@@ -1,5 +1,5 @@
 {
-    "name": "hrzg/yii2-resque-module",
+    "name": "dmstr/yii2-resque-module",
     "description": "Resque job manager module with backend UI",
     "type": "yii2-extension",
     "keywords": ["yii2","extension"],
