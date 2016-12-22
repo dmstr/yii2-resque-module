@@ -48,7 +48,8 @@ class ManageController extends Controller
             $args = Json::decode($model['payload']);
             $args['sessionId'] = \Yii::$app->session->id;
             $token = \Resque::enqueue('default', 'hrzg\resque\components\Job', $args, true);
-            \Yii::$app->session->addFlash('success', "Job <code>$token</code> for <code>{$args['sessionId']}</code> created.");
+            $shortId = substr($token,0,6);
+            \Yii::$app->session->addFlash('info', "Job <b>$shortId</b> for session <b>{$args['sessionId']}</b> created.");
         }
 
         $jobData = [];

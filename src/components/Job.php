@@ -2,7 +2,9 @@
 
 namespace hrzg\resque\components;
 
+use dmstr\helpers\Html;
 use mikehaertl\shellcommand\Command;
+use yii\helpers\Json;
 use yii\helpers\VarDumper;
 
 class Job
@@ -11,6 +13,14 @@ class Job
     public function perform()
     {
         \Yii::info($this->args, __METHOD__);
+
+        // user session
+        \Yii::$app->session->setId($this->args['sessionId']);
+        \Yii::$app->session->flashParam = '__flash';
+        $shortId = substr($this->job->payload['id'],0,6);
+        \Yii::$app->session->addFlash('info',"Job <b>{$shortId}</b> started on worker {$this->job->worker->__toString()}...");
+        #\Yii::$app->session->addFlash('info',VarDumper::dumpAsString($this->job->payload, 4, true));
+        \Yii::$app->session->close();
 
         // prepare logging
         $logDir = \Yii::getAlias('@runtime/jobs');
@@ -36,6 +46,7 @@ class Job
         if ($command->execute()) {
             \Yii::info('Done.', __METHOD__);
             $output .= $command->getOutput();
+            \Yii::info($command->getOutput(), __METHOD__);
             $output .= "\nJob completed successfully.";
             $flashType = 'success';
         } else {
@@ -47,7 +58,7 @@ class Job
         }
 
         // remove blank lines
-        $output = '<p style="font-family: monospace">'.preg_replace('/\n{2,}/', "\n", $output).'</p>';
+        $output = '<p style="font-family: monospace">'.Html::encode(preg_replace('/\n{2,}/', "\n", $output)).'</p>';
 
         // stdout
         echo $output;
@@ -58,7 +69,17 @@ class Job
         // user session
         \Yii::$app->session->setId($this->args['sessionId']);
         \Yii::$app->session->flashParam = '__flash';
+        \Yii::$app->session->addFlash('info',"Job <b>{$shortId}</b> completed on worker {$this->job->worker->__toString()}...");
         \Yii::$app->session->addFlash($flashType,nl2br($output));
+
+        // TODO: add possiblity to abort job; before enabling loop
+        /*if ($this->args['loop']) {
+            sleep($this->args['sleep']);
+            \Yii::$app->session->addFlash('info',"Loop...".get_class($this));
+            //\Yii::$app->session->addFlash('info',Json::encode($this->job->payload['args'][0]));
+            \Resque::enqueue('default', get_class($this), $this->job->payload['args'][0]);
+        }*/
+
         \Yii::$app->session->close();
 
         // flush logs, eg. db
