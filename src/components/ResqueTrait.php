@@ -27,7 +27,7 @@ trait ResqueTrait
             ],
             true
         );
-        \Yii::$app->session->addFlash('success', "Job <code>$token</code> for <code>$sessionId</code> created.");
+        \Yii::$app->session->addFlash('success', "Job <code>$token</code> created.");
         $jobs = \Yii::$app->session->get('__jobs', []);
         $jobs[] = $token;
         \Yii::$app->session->set('__jobs', $jobs);

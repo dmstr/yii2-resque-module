@@ -60,17 +60,17 @@ class Job
         // remove blank lines
         $output = '<p style="font-family: monospace">'.Html::encode(preg_replace('/\n{2,}/', "\n", $output)).'</p>';
 
-        // stdout
-        echo $output;
-
         // file
         file_put_contents($logFile, $output."\n", FILE_APPEND);
 
         // user session
         \Yii::$app->session->setId($this->args['sessionId']);
         \Yii::$app->session->flashParam = '__flash';
-        \Yii::$app->session->addFlash('info',"Job <b>{$shortId}</b> completed on worker {$this->job->worker->__toString()}...");
-        \Yii::$app->session->addFlash($flashType,nl2br($output));
+        \Yii::$app->session->addFlash('trace',nl2br($output));
+        \Yii::$app->session->addFlash($flashType,"Job <b>{$shortId}</b> completed on worker {$this->job->worker->__toString()}...");
+
+        // stdout
+        echo $output;
 
         // TODO: add possiblity to abort job; before enabling loop
         /*if ($this->args['loop']) {
