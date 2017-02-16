@@ -66,7 +66,7 @@ class Job
         // user session
         \Yii::$app->session->setId($this->args['sessionId']);
         \Yii::$app->session->flashParam = '__flash';
-        \Yii::$app->session->addFlash('trace',nl2br($output));
+        \Yii::trace($output, __METHOD__);
         \Yii::$app->session->addFlash($flashType,"Job <b>{$shortId}</b> completed on worker {$this->job->worker->__toString()}...");
 
         // stdout
