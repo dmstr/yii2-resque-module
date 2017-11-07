@@ -15,8 +15,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'queue')->dropDownList(
         [
             'default' => 'default',
-            'queue-1' => 'queue-1',
-            'queue-2' => 'queue-2',
+            'internal' => 'internal',
+            'external' => 'external',
         ]
     ) ?>
 
