@@ -12,8 +12,6 @@ use yii\helpers\Html;
 use yii\helpers\VarDumper;
 use yii\widgets\Pjax;
 
-$count = Resque::size('default');
-
 ?>
 
 <div class="row">
