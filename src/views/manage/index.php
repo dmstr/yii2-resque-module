@@ -48,21 +48,6 @@ $count = Resque::size('default');
             </div>
         </div>
     </div>
-
-    <div class="col-sm-4">
-
-
-    </div>
-
 </div>
-
-<div class="row">
-    <div class="col-sm-6">
-
-
-    </div>
-
-</div>
-
 
 <?php Pjax::end() ?>
