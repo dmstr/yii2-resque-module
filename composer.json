@@ -12,7 +12,10 @@
     ],
     "require": {
         "yiisoft/yii2": "2.*",
-        "chrisboulton/php-resque": "1.2.x"
+        "yiisoft/yii2-queue": "^2.0"
+    },
+    "suggest": {
+        "ignatenkovnikita/yii2-queuemanager": "Manager/viewer for jobs"
     },
     "autoload": {
         "psr-4": {

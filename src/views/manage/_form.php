@@ -20,33 +20,12 @@ use yii\widgets\ActiveForm;
         ]
     ) ?>
 
-    <?= $form->field($model, 'job')->dropDownList(
+    <?= $form->field($model, 'command')->textarea(
         [
-            'app\\jobs\\ImportJob' => 'Import',
+            'app\\jobs\\ImportJob' => 'Command',
         ]
     ) ?>
 
-    <?=
-    '<div class="field-widget-{$attribute}">' .
-    \devgroup\jsoneditor\Jsoneditor::widget(
-        [
-            'options' => [
-              'style'=>'height: 80px;'
-            ],
-            'editorOptions' => [
-                'modes' => ['code', 'form', 'text', 'tree', 'view'], // available modes
-                'mode'  => 'form', // current mode
-            ],
-            'model'         => $model,
-            'attribute'     => 'payload',
-            'options'       => [
-                'id'    => 'widget-payload',
-                'class' => 'form-control',
-            ],
-        ]
-    ) .
-    '</div>'
-    ?>
 
 
     <div class="form-group">

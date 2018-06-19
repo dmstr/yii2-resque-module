@@ -6,13 +6,13 @@ class QueueForm extends \yii\base\Model
 {
     public $queue;
     public $job = [];
-    public $payload = '{"command":"yii", "loop": false, "sleep": 60}';
-
+    public $command = 'yii';
+    public $params = '{}';
 
     public function rules()
     {
         return [
-            [['job','queue', 'payload'], 'required'],
+            [['job', 'queue', 'command', 'params'], 'required'],
         ];
     }
 

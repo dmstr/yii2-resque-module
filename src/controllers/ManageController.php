@@ -9,72 +9,36 @@
 namespace hrzg\resque\controllers;
 
 
+use bedezign\yii2\audit\Audit;
+use hrzg\resque\components\Job;
+use hrzg\resque\components\QueueCommand;
 use hrzg\resque\models\QueueForm;
 use yii\filters\AccessControl;
 use yii\helpers\Json;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 
 class ManageController extends Controller
 {
-    /**
-     *
-     * @inheritdoc
-     * @return unknown
-     */
-    public function behaviors() {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-
-                        /**
-                         *
-                         */
-                        'matchCallback' => function ($rule, $action) {return \Yii::$app->user->can($this->module->id . '_' . $this->id . '_' . $action->id, ['route' => true]);},
-                    ]
-                ]
-            ]
-        ];
-    }
-
     public function actionIndex()
     {
         $model = new QueueForm;
 
         if (\Yii::$app->request->post('QueueForm')) {
             $model->load($_POST);
-            $args = Json::decode($model['payload']);
-            $args['sessionId'] = \Yii::$app->session->id;
-            $token = \Resque::enqueue('default', 'hrzg\resque\components\Job', $args, true);
-            $shortId = substr($token,0,6);
-            \Yii::$app->session->addFlash('info', "Job <b>$shortId</b> for session <b>{$args['sessionId']}</b> created.");
+
+            \Yii::$app->queue->push(new QueueCommand([
+                'command' => $model['command'],
+                'sessionId' => \Yii::$app->session->id
+            ]));
         }
 
-        $jobData = [];
-        $jobs = \Yii::$app->session->get('__jobs', []);
-        if (is_array($jobs)) foreach ($jobs AS $job) {
-            #echo 'JOB' . $job;
-            $status = new \Resque_Job_Status($job);
-            #var_dump($status->get());
-            $jobData[] = ['id'=>$job, 'status'=>$status->get()];
-        }
-
-
-        (new \Resque_Worker('default'))->pruneDeadWorkers();
-
-        $workers = \Resque::redis()->smembers('workers');
-        $queues = \Resque::redis()->smembers('queues');
-
-        echo $this->render(
+        return $this->render(
             'index',
             [
                 'model' => $model,
-                'workers' => $workers,
-                'queues' => $queues,
-                'jobs' => $jobData
             ]
         );
+
     }
 }
