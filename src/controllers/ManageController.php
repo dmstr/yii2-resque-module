@@ -19,12 +19,8 @@ class ManageController extends Controller
     {
         $model = new QueueForm();
 
-        if ($model->load($this->request->post())) {
-
-            Yii::$app->queue->push(new QueueCommand([
-                'command' => $model['command'],
-                'sessionId' => Yii::$app->getSession()->getId()
-            ]));
+        if ($model->load($this->request->post()) && $model->sendJobToQueue()) {
+            return $this->redirect(['index']);
         }
 
         return $this->render('index', [
