@@ -3,9 +3,11 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model hrzg\resque\models\QueueForm */
-/* @var $form ActiveForm */
+/**
+ * @var $this yii\web\View
+ * @var $model hrzg\resque\models\QueueForm
+ * @var $form ActiveForm
+ */
 ?>
 <div class="form">
 
