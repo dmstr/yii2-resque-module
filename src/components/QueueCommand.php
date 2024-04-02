@@ -22,7 +22,7 @@ class QueueCommand extends BaseObject implements JobInterface
 
             $session->setId($this->sessionId);
             $session->flashParam = '__flash';
-            $session->addFlash('info', "Job started...");
+            $session->addFlash('info', 'Job started...');
             $session->close();
         }
 
@@ -41,7 +41,7 @@ class QueueCommand extends BaseObject implements JobInterface
             trigger_error($command->getError());
         }
         if ($hasSession) {
-            $session->addFlash($flashType, "Job completed");
+            $session->addFlash($flashType, 'Job completed');
         }
 
         echo $output;
@@ -57,5 +57,4 @@ class QueueCommand extends BaseObject implements JobInterface
 
         return $output;
     }
-
 }

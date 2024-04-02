@@ -8,11 +8,12 @@
 
 namespace hrzg\resque\controllers;
 
-use hrzg\resque\components\QueueCommand;
 use hrzg\resque\models\QueueForm;
-use Yii;
 use yii\web\Controller;
 
+/**
+ * @property-read \yii\web\Request $request
+*/
 class ManageController extends Controller
 {
     public function actionIndex()
@@ -26,6 +27,5 @@ class ManageController extends Controller
         return $this->render('index', [
             'model' => $model
         ]);
-
     }
 }

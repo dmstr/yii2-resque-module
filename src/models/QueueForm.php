@@ -6,10 +6,12 @@ use hrzg\resque\components\QueueCommand;
 use Yii;
 use yii\base\Model;
 
+/**
+ * @property-read null|string $jobId
+ */
 class QueueForm extends Model
 {
     public $command = 'yii';
-
     private $_jobId;
 
     public function rules()

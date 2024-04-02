@@ -1,15 +1,9 @@
 <?php
-namespace hrzg\resque\views\import;
+/**
+ * @var $model hrzg\resque\models\QueueForm
+ */
 
-use dmstr\modules\prototype\widgets\TwigWidget;
 use insolita\wgadminlte\SmallBox;
-use Resque;
-use Resque_Worker;
-use rmrevin\yii\fontawesome\FA;
-use rmrevin\yii\fontawesome\FontAwesome;
-use yii\bootstrap\Collapse;
-use yii\helpers\Html;
-use yii\helpers\VarDumper;
 use yii\widgets\Pjax;
 
 ?>
@@ -20,7 +14,7 @@ use yii\widgets\Pjax;
             'head' => '#',
             'text' => 'Workers',
             'footer' => 'Jobs Status',
-            'footer_link' => ['/queuemanager']
+            'footer_link' => ['/queuemanager/default/index']
         ]) ?>
     </div>
     <div class="col-sm-3">

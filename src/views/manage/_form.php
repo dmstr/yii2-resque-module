@@ -1,11 +1,11 @@
 <?php
+/**
+ * @var $model hrzg\resque\models\QueueForm
+ */
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/**
- * @var $model hrzg\resque\models\QueueForm
- */
 ?>
 <div class="form">
     <?php
