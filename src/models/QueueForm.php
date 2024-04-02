@@ -4,20 +4,18 @@ namespace hrzg\resque\models;
 
 use hrzg\resque\components\QueueCommand;
 use Yii;
+use yii\base\Model;
 
-class QueueForm extends \yii\base\Model
+class QueueForm extends Model
 {
-    public $queue;
-    public $job = [];
     public $command = 'yii';
-    public $params = '{}';
 
     private $_jobId;
 
     public function rules()
     {
         return [
-            [['job', 'queue', 'command', 'params'], 'required'],
+            ['command', 'required']
         ];
     }
 
@@ -26,9 +24,6 @@ class QueueForm extends \yii\base\Model
      */
     public function sendJobToQueue()
     {
-
-        var_dump($this->attributes);exit;
-
         if ($this->validate()) {
             $this->_jobId = Yii::$app->queue->push(new QueueCommand([
                 'command' => $this->command,
@@ -50,6 +45,4 @@ class QueueForm extends \yii\base\Model
     {
         return $this->_jobId;
     }
-
-
 }
