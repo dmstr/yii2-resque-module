@@ -16,7 +16,6 @@ class QueueForm extends Model
     private $_jobId;
     private Queue $_queue;
 
-
     /**
      * @inheritdoc
      */
@@ -65,5 +64,15 @@ class QueueForm extends Model
     public function getJobId()
     {
         return $this->_jobId;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        $attributeLabels = parent::attributeLabels();
+        $attributeLabels['command'] = Yii::t('resque', 'Command');
+        return $attributeLabels;
     }
 }
