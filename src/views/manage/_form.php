@@ -1,16 +1,21 @@
 <?php
-/**
- * @var $model hrzg\resque\models\QueueForm
- */
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+/**
+ * @var $this yii\web\View
+ * @var $model hrzg\resque\models\QueueForm
+ * @var $form ActiveForm
+ */
 ?>
 <div class="form">
+
     <?php
-    $form = ActiveForm::begin();
-    echo $form->field($model, 'command')->textarea();
+    $form = ActiveForm::begin([
+            'successCssClass' => ''
+    ]);
+    echo $form->field($model, 'command')->textarea()
     ?>
 
     <div class="form-group">

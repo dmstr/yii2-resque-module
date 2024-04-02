@@ -12,17 +12,17 @@ use yii\widgets\Pjax;
     <div class="col-sm-3">
         <?= SmallBox::widget([
             'head' => '#',
-            'text' => 'Workers',
-            'footer' => 'Jobs Status',
+            'text' => Yii::t('resque', 'Workers'),
+            'footer' => Yii::t('resque', 'Jobs Status'),
             'footer_link' => ['/queuemanager/default/index']
         ]) ?>
     </div>
     <div class="col-sm-3">
         <?= SmallBox::widget([
             'head' => '#',
-            'text' => 'Queues',
+            'text' => Yii::t('resque', 'Queues'),
             'type' => SmallBox::TYPE_YEL,
-            'footer' => 'Real Time Monitor',
+            'footer' => Yii::t('resque', 'Real Time Monitor'),
             'footer_link' => ['/queuemanager/default/stat']]) ?>
     </div>
 </div>
@@ -30,13 +30,13 @@ use yii\widgets\Pjax;
 <?php Pjax::begin(['formSelector' => 'form']) ?>
 
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-xs-12">
         <div class="panel panel-warning">
             <div class="panel-heading">
-                Debug
+                <?php echo Yii::t('resque', 'Debug') ?>
             </div>
             <div class="panel-body">
-                <?= $this->render('_form', ['model' => $model]); ?>
+                <?php echo $this->render('_form', ['model' => $model]); ?>
             </div>
         </div>
     </div>
