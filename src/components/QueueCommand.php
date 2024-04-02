@@ -6,6 +6,7 @@ use mikehaertl\shellcommand\Command;
 use Yii;
 use yii\base\BaseObject;
 use yii\queue\JobInterface;
+use yii\web\Session;
 
 class QueueCommand extends BaseObject implements JobInterface
 {
@@ -15,11 +16,10 @@ class QueueCommand extends BaseObject implements JobInterface
     public function execute($queue)
     {
         // user session
-        $hasSession = Yii::$app->has('session');
+        $session = Yii::$app->get('session', false);
+        $hasSession = $session instanceof Session;
 
         if ($hasSession) {
-            $session = Yii::$app->getSession();
-
             $session->setId($this->sessionId);
             $session->flashParam = '__flash';
             $session->addFlash('info', 'Job started...');
