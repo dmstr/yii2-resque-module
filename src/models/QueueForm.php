@@ -25,6 +25,11 @@ class QueueForm extends Model
             'command',
             'required'
         ];
+        $rules[] = [
+            'command',
+            'string',
+            'max' => 200
+        ];
         return $rules;
     }
 
