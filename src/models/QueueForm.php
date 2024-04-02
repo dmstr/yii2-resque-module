@@ -14,11 +14,18 @@ class QueueForm extends Model
     public $command = 'yii';
     private $_jobId;
 
+
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
-        return [
-            ['command', 'required']
+        $rules = parent::rules();
+        $rules[] = [
+            'command',
+            'required'
         ];
+        return $rules;
     }
 
     /**
