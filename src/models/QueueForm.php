@@ -5,6 +5,7 @@ namespace hrzg\resque\models;
 use hrzg\resque\components\QueueCommand;
 use Yii;
 use yii\base\Model;
+use yii\queue\Queue;
 
 /**
  * @property-read null|string $jobId
@@ -13,6 +14,7 @@ class QueueForm extends Model
 {
     public $command = 'yii';
     private $_jobId;
+    private Queue $_queue;
 
 
     /**
@@ -39,7 +41,7 @@ class QueueForm extends Model
     public function sendJobToQueue()
     {
         if ($this->validate()) {
-            $this->_jobId = Yii::$app->queue->push(new QueueCommand([
+            $this->_jobId = $this->_queue->push(new QueueCommand([
                 'command' => $this->command,
                 // Only set session id if session exists
                 'sessionId' => Yii::$app->has('session') ? Yii::$app->getSession()->getId() : null
@@ -50,6 +52,11 @@ class QueueForm extends Model
             }
         }
         return false;
+    }
+
+    public function setQueue(Queue $queue): void
+    {
+        $this->_queue = $queue;
     }
 
     /**
