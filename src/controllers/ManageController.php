@@ -8,37 +8,29 @@
 
 namespace hrzg\resque\controllers;
 
-
-use bedezign\yii2\audit\Audit;
-use hrzg\resque\components\Job;
-use hrzg\resque\components\QueueCommand;
 use hrzg\resque\models\QueueForm;
-use yii\filters\AccessControl;
-use yii\helpers\Json;
-use yii\helpers\VarDumper;
 use yii\web\Controller;
+use Yii;
 
+/**
+ * @property-read \yii\web\Request $request
+ * @property-read \hrzg\resque\Module $module
+ */
 class ManageController extends Controller
 {
+
     public function actionIndex()
     {
-        $model = new QueueForm;
+        $model = new QueueForm([
+            'queue' => Yii::$app->get($this->module->queue)
+        ]);
 
-        if (\Yii::$app->request->post('QueueForm')) {
-            $model->load($_POST);
-
-            \Yii::$app->queue->push(new QueueCommand([
-                'command' => $model['command'],
-                'sessionId' => \Yii::$app->session->id
-            ]));
+        if ($model->load($this->request->post()) && $model->sendJobToQueue()) {
+            return $this->redirect(['index']);
         }
 
-        return $this->render(
-            'index',
-            [
-                'model' => $model,
-            ]
-        );
-
+        return $this->render('index', [
+            'model' => $model
+        ]);
     }
 }

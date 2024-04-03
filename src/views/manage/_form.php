@@ -3,35 +3,23 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model hrzg\resque\models\QueueForm */
-/* @var $form ActiveForm */
+/**
+ * @var $this yii\web\View
+ * @var $model hrzg\resque\models\QueueForm
+ * @var $form ActiveForm
+ */
 ?>
 <div class="form">
 
-    <?php $form = ActiveForm::begin(); ?>
-
-
-    <?= $form->field($model, 'queue')->dropDownList(
-        [
-            'default' => 'default',
-            'internal' => 'internal',
-            'external' => 'external',
-        ]
-    ) ?>
-
-    <?= $form->field($model, 'command')->textarea(
-        [
-            'app\\jobs\\ImportJob' => 'Command',
-        ]
-    ) ?>
-
-
+    <?php
+    $form = ActiveForm::begin([
+            'successCssClass' => ''
+    ]);
+    echo $form->field($model, 'command')->textarea()
+    ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
-        <div class="help-block"></div>
+        <?php echo Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
     </div>
     <?php ActiveForm::end(); ?>
-
-</div><!-- _form -->
+</div>
