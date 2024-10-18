@@ -39,3 +39,7 @@ Module configuration
 ]
 ```
 
+Upgrading
+---
+
+When upgrading von v2 to v3 run this migration: `yii migrate/up -p=@vendor/dmstr/yii2-resque-module/src/migrations/2.0-to-3.0`
