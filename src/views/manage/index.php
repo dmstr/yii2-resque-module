@@ -1,29 +1,17 @@
 <?php
 /**
- * @var $model hrzg\resque\models\QueueForm
+ * @var hrzg\resque\models\QueueForm $model
+ * @var \yii\queue\db\StatisticsProvider|\yii\queue\file\StatisticsProvider|\yii\queue\redis\StatisticsProvider $statisticsProvider
  */
 
-use insolita\wgadminlte\SmallBox;
+use yii\helpers\Html;
 use yii\widgets\Pjax;
 
 ?>
 
 <div class="row">
-    <div class="col-sm-3">
-        <?= SmallBox::widget([
-            'head' => '#',
-            'text' => Yii::t('resque', 'Workers'),
-            'footer' => Yii::t('resque', 'Jobs Status'),
-            'footer_link' => ['/queuemanager/default/index']
-        ]) ?>
-    </div>
-    <div class="col-sm-3">
-        <?= SmallBox::widget([
-            'head' => '#',
-            'text' => Yii::t('resque', 'Queues'),
-            'type' => SmallBox::TYPE_YEL,
-            'footer' => Yii::t('resque', 'Real Time Monitor'),
-            'footer_link' => ['/queuemanager/default/stat']]) ?>
+    <div class="col-xs-12">
+        <?php echo $this->render('_statistics', ['statisticsProvider' => $statisticsProvider]); ?>
     </div>
 </div>
 

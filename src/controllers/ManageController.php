@@ -9,6 +9,7 @@
 namespace hrzg\resque\controllers;
 
 use hrzg\resque\models\QueueForm;
+use yii\queue\interfaces\StatisticsProviderInterface;
 use yii\web\Controller;
 use Yii;
 
@@ -21,6 +22,9 @@ class ManageController extends Controller
 
     public function actionIndex()
     {
+        /** @var \yii\queue\Queue $queue */
+        $queue = Yii::$app->get($this->module->queue);
+
         $model = new QueueForm([
             'queue' => Yii::$app->get($this->module->queue)
         ]);
@@ -29,8 +33,16 @@ class ManageController extends Controller
             return $this->redirect(['index']);
         }
 
+        if ($queue instanceof StatisticsProviderInterface) {
+            $statisticsProvider = $queue->getStatisticsProvider();
+        } else {
+            $statisticsProvider = null;
+        }
+
+        $this->view->title = Yii::t('resque', 'Queue');
         return $this->render('index', [
-            'model' => $model
+            'model' => $model,
+            'statisticsProvider' => $statisticsProvider
         ]);
     }
 }

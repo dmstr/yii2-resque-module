@@ -26,19 +26,18 @@ class QueueCommand extends BaseObject implements JobInterface
             $session->close();
         }
 
-
         // extract command
         $command = new Command($this->command);
 
         if ($command->execute()) {
             $output = $command->getOutput();
-            Yii::info($command->getOutput(), __METHOD__);
+            Yii::info($output, __METHOD__);
             $flashType = 'success';
         } else {
-            Yii::error($command->getError(), __METHOD__);
             $output = $command->getError();
+            Yii::error($output, __METHOD__);
+            trigger_error($output);
             $flashType = 'warning';
-            trigger_error($command->getError());
         }
         if ($hasSession) {
             $session->addFlash($flashType, 'Job completed');

@@ -16,7 +16,7 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist hrzg/yii2-resque-module "*"
+composer require --prefer-dist hrzg/yii2-resque-module "*"
 ```
 
 or add
@@ -30,24 +30,6 @@ to the require section of your `composer.json` file.
 
 Setup
 -----
-
-Once the extension is installed, simply use it in your code by  :
-
-
-Docker containers
-```
-redis:
-  image: redis:3
-
-appworker:
-  build: .
-  command: yii resque/work
-  volumes:
-    - '.:/app'
-  links:
-    - 'redis:REDIS'
-    - 'mariadb:DB'
-```
 
 Module configuration
 ```php
